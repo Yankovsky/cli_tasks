@@ -49,7 +49,7 @@ invalid_usage() {
 
 # $1 - requested file number
 file_number_is_out_of_range() {
-	printf "1.sh:  requested file number %s doesn't correspond to any file.\n" $1
+	printf "1.sh: requested file number %s doesn't correspond to any file.\n" $1
 	enter_valid_number
 }
 
