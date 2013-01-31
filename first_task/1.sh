@@ -12,18 +12,18 @@ main() {
 }
 
 do_work() {
-	local -a txt_files_in_current_dir=(*.txt)
+	IFS=$'\n'
+	local -a txt_files_in_current_dir=( $(find . -maxdepth 1 -type f -name "*.txt" -printf "%f\n") )
 	local -i files_count=${#txt_files_in_current_dir[*]}
 	for i in ${!txt_files_in_current_dir[*]}
 	do
 		printf "%d: %s\n" $(($i+1)) ${txt_files_in_current_dir[$i]}
 	done
 
-	local file_number
 	read file_number
 	while [[ $file_number != q ]]; do
 		if [[ $file_number =~ ^[0-9]+$ ]]; then
-			if [[ $file_number < 1 || $file_number > $files_count ]]; then
+			if [[ $file_number -lt 1 || $file_number -gt $files_count ]]; then
 				file_number_is_out_of_range $file_number
 			else
 				head ${txt_files_in_current_dir[file_number - 1]}
